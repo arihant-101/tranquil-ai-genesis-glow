@@ -1,24 +1,12 @@
 
 import React, { useEffect, useState } from 'react';
-import { TrendingUp, Heart, Smile, Frown, Sparkles } from 'lucide-react';
+import { TrendingUp, Brain, BarChart3, Calendar } from 'lucide-react';
 
 const MoodLoggingSection = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [animatedValue, setAnimatedValue] = useState(0);
-  const [floatingElements, setFloatingElements] = useState([]);
 
   useEffect(() => {
-    // Generate floating elements
-    const elements = Array.from({ length: 15 }, (_, i) => ({
-      id: i,
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      delay: Math.random() * 5,
-      duration: 3 + Math.random() * 4,
-      emoji: ['😊', '😐', '😔', '😴', '😤', '❤️', '✨', '🌟'][Math.floor(Math.random() * 8)]
-    }));
-    setFloatingElements(elements);
-
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -42,143 +30,131 @@ const MoodLoggingSection = () => {
     return () => observer.disconnect();
   }, []);
 
-  const moodEmojis = ['😊', '😐', '😔', '😴', '😤'];
-
   return (
     <section 
       id="mood-logging" 
-      className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-purple-900 py-20 relative overflow-hidden"
+      className="py-24 bg-white relative overflow-hidden"
     >
-      {/* Dynamic Background Elements */}
-      <div className="absolute inset-0">
-        {/* Floating Particles */}
-        {floatingElements.map((element) => (
-          <div
-            key={element.id}
-            className="absolute animate-pulse opacity-60"
-            style={{
-              left: `${element.x}%`,
-              top: `${element.y}%`,
-              animationDelay: `${element.delay}s`,
-              animationDuration: `${element.duration}s`,
-            }}
-          >
-            <div className="text-2xl animate-bounce">{element.emoji}</div>
-          </div>
-        ))}
-        
-        {/* Gradient Orbs */}
-        <div className="absolute top-20 left-20 w-72 h-72 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-20 w-96 h-96 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
-        <div className="absolute top-1/2 left-1/4 w-64 h-64 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '4s' }}></div>
-
-        {/* Animated Grid */}
-        <div className="absolute inset-0 opacity-5">
-          <div className="h-full w-full" style={{
-            backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.3) 1px, transparent 0)',
-            backgroundSize: '50px 50px'
-          }}></div>
-        </div>
-      </div>
-
+      {/* Background Pattern */}
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-50 to-indigo-50/30"></div>
+      
       <div className="container mx-auto px-6 lg:px-8 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
           
-          {/* Left Column - Phone Mockup */}
-          <div className={`transition-all duration-1000 ${
+          {/* Left Column - Content */}
+          <div className={`space-y-8 transition-all duration-1000 ${
             isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-20'
           }`}>
-            <div className="relative">
-              <div className="w-80 h-[600px] bg-gradient-to-b from-gray-800 to-gray-900 rounded-[3rem] mx-auto shadow-2xl border-4 border-gray-700 hover:scale-105 transition-transform duration-500">
-                <div className="absolute inset-4 bg-black rounded-[2.2rem] overflow-hidden">
-                  <div className="w-full h-full bg-gradient-to-b from-slate-900 to-blue-900 p-6">
-                    
-                    {/* Mood Chart */}
-                    <div className="mt-8 space-y-4">
-                      <h3 className="text-white text-lg font-semibold flex items-center">
-                        <Sparkles className="w-5 h-5 mr-2 text-cyan-400 animate-pulse" />
-                        Weekly Mood Trends
-                      </h3>
-                      <div className="bg-white/10 rounded-xl p-4 backdrop-blur-sm border border-cyan-500/20">
-                        <div className="flex justify-between items-end h-32 space-x-2">
-                          {[65, 78, 45, 89, 72, 85, animatedValue].map((height, i) => (
-                            <div key={i} className="flex-1 flex flex-col items-center group">
-                              <div 
-                                className="w-full bg-gradient-to-t from-blue-500 to-cyan-400 rounded-t-lg transition-all duration-500 hover:from-cyan-400 hover:to-blue-500 cursor-pointer"
-                                style={{ height: `${height}%` }}
-                              ></div>
-                              <span className="text-white text-xs mt-1 group-hover:text-cyan-400 transition-colors">
-                                {['M', 'T', 'W', 'T', 'F', 'S', 'S'][i]}
-                              </span>
-                            </div>
-                          ))}
+            
+            {/* Section Badge */}
+            <div className="inline-flex items-center space-x-2 bg-indigo-100 rounded-full px-4 py-2">
+              <Brain className="w-4 h-4 text-indigo-600" />
+              <span className="text-sm font-semibold text-indigo-700">Smart Analytics</span>
+            </div>
+
+            <div className="space-y-6">
+              <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 leading-tight">
+                Understand Your
+                <br />
+                <span className="text-indigo-600">Emotional Patterns</span>
+              </h2>
+              
+              <p className="text-xl text-slate-600 leading-relaxed">
+                Advanced mood tracking with AI-powered insights that help you identify triggers, patterns, and progress over time.
+              </p>
+            </div>
+
+            {/* Feature List */}
+            <div className="space-y-6">
+              {[
+                {
+                  icon: BarChart3,
+                  title: "Visual Analytics",
+                  description: "Beautiful charts and graphs that make your emotional data easy to understand"
+                },
+                {
+                  icon: Calendar,
+                  title: "Historical Tracking", 
+                  description: "Track mood patterns over weeks, months, and years to see your growth"
+                },
+                {
+                  icon: TrendingUp,
+                  title: "Predictive Insights",
+                  description: "AI predictions to help you prepare for challenging periods"
+                }
+              ].map((feature, i) => (
+                <div 
+                  key={i}
+                  className={`flex items-start space-x-4 transition-all duration-500 ${
+                    isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+                  }`}
+                  style={{ transitionDelay: `${(i + 1) * 200}ms` }}
+                >
+                  <div className="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <feature.icon className="w-6 h-6 text-indigo-600" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-slate-900 mb-1">{feature.title}</h3>
+                    <p className="text-slate-600">{feature.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Right Column - Professional Dashboard */}
+          <div className={`transition-all duration-1000 delay-300 ${
+            isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-20'
+          }`}>
+            <div className="bg-white rounded-3xl shadow-2xl border border-slate-200 p-8 relative">
+              
+              {/* Dashboard Header */}
+              <div className="flex items-center justify-between mb-8">
+                <div>
+                  <h3 className="text-xl font-bold text-slate-900">Mood Analytics</h3>
+                  <p className="text-slate-500">Last 7 days</p>
+                </div>
+                <div className="flex items-center space-x-2 bg-green-100 rounded-full px-3 py-1">
+                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                  <span className="text-sm font-medium text-green-700">Improving</span>
+                </div>
+              </div>
+
+              {/* Chart */}
+              <div className="mb-8">
+                <div className="flex justify-between items-end h-48 space-x-3">
+                  {[65, 78, 45, 89, 72, 85, animatedValue].map((height, i) => (
+                    <div key={i} className="flex flex-col items-center group flex-1">
+                      <div 
+                        className="w-full bg-gradient-to-t from-indigo-500 to-indigo-300 rounded-t-lg transition-all duration-500 hover:from-indigo-600 hover:to-indigo-400 cursor-pointer relative"
+                        style={{ height: `${height}%` }}
+                      >
+                        <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-slate-900 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">
+                          {height}%
                         </div>
                       </div>
-                      
-                      {/* Mood Selector */}
-                      <div className="flex justify-center space-x-3 mt-6">
-                        {moodEmojis.map((emoji, i) => (
-                          <div 
-                            key={i}
-                            className={`w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-xl transition-all duration-300 hover:scale-110 hover:bg-cyan-500/30 cursor-pointer ${
-                              i === 0 ? 'bg-blue-500/30 scale-110 animate-pulse' : ''
-                            }`}
-                          >
-                            {emoji}
-                          </div>
-                        ))}
-                      </div>
+                      <span className="text-slate-600 text-sm mt-2">
+                        {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'][i]}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Insights */}
+              <div className="space-y-4">
+                <div className="bg-indigo-50 rounded-xl p-4">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-8 h-8 bg-indigo-200 rounded-lg flex items-center justify-center">
+                      <TrendingUp className="w-4 h-4 text-indigo-600" />
+                    </div>
+                    <div>
+                      <p className="font-medium text-slate-900">Weekly Insight</p>
+                      <p className="text-sm text-slate-600">Your mood improved 23% this week, especially on weekends.</p>
                     </div>
                   </div>
                 </div>
               </div>
-
-              {/* Floating Icons */}
-              <div className="absolute -top-4 -right-4 animate-bounce">
-                <Heart className="w-8 h-8 text-red-400" />
-              </div>
-              <div className="absolute -bottom-4 -left-4 animate-pulse">
-                <TrendingUp className="w-8 h-8 text-green-400" />
-              </div>
-            </div>
-          </div>
-
-          {/* Right Column - Content */}
-          <div className={`text-white space-y-8 transition-all duration-1000 delay-300 ${
-            isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-20'
-          }`}>
-            <div className="space-y-4">
-              <h2 className="text-5xl font-bold leading-tight">
-                Track Your
-                <br />
-                <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent animate-pulse">
-                  Emotional Journey
-                </span>
-              </h2>
-              <p className="text-xl text-gray-300 leading-relaxed">
-                Understand your mood patterns with intelligent tracking and personalized insights
-              </p>
-            </div>
-
-            <div className="space-y-4">
-              {[
-                { icon: Heart, text: "Daily mood check-ins with smart reminders", color: "text-red-400" },
-                { icon: TrendingUp, text: "Visual analytics to spot emotional patterns", color: "text-green-400" },
-                { icon: Smile, text: "Personalized recommendations based on your data", color: "text-yellow-400" }
-              ].map((feature, i) => (
-                <div 
-                  key={i}
-                  className={`flex items-center space-x-4 transition-all duration-500 hover:translate-x-2 group ${
-                    isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-                  }`}
-                  style={{ transitionDelay: `${(i + 1) * 200 + 500}ms` }}
-                >
-                  <div className="w-12 h-12 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300 border border-cyan-500/30">
-                    <feature.icon className={`w-6 h-6 ${feature.color} group-hover:animate-pulse`} />
-                  </div>
-                  <p className="text-lg text-gray-300 group-hover:text-white transition-colors duration-300">{feature.text}</p>
-                </div>
-              ))}
             </div>
           </div>
         </div>

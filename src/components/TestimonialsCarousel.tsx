@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import { Star, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Star, ChevronLeft, ChevronRight, Quote } from 'lucide-react';
 
 const TestimonialsCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -8,32 +8,28 @@ const TestimonialsCarousel = () => {
 
   const testimonials = [
     {
-      name: "Sarah Johnson",
-      role: "Marketing Professional",
+      name: "Dr. Sarah Mitchell",
+      role: "Clinical Psychologist",
+      company: "Stanford Medical Center",
       avatar: "https://images.unsplash.com/photo-1494790108755-2616b25ad05c?w=80&h=80&fit=crop&crop=face",
       rating: 5,
-      text: "Tranquil AI has completely transformed my approach to mental health. The AI therapist feels incredibly real and supportive, available whenever I need guidance."
+      text: "As a practicing therapist, I'm impressed by the sophistication of Tranquil AI. It provides genuine therapeutic support and complements traditional therapy beautifully. My patients have seen remarkable improvements."
     },
     {
-      name: "Michael Chen",
+      name: "Michael Rodriguez",
       role: "Software Engineer",
+      company: "Tech Startup",
       avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face",
       rating: 5,
-      text: "The mood tracking feature helped me identify patterns I never noticed. Combined with the meditation sessions, I've seen a remarkable improvement in my daily well-being."
+      text: "The AI therapist feature has been a game-changer for managing work stress. Having access to professional-grade support 24/7 has helped me maintain better mental health habits and work-life balance."
     },
     {
-      name: "Emily Rodriguez",
-      role: "Teacher",
+      name: "Emily Chen",
+      role: "Graduate Student",
+      company: "UC Berkeley",
       avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&h=80&fit=crop&crop=face",
       rating: 5,
-      text: "As someone who struggles with anxiety, having 24/7 access to supportive guidance has been life-changing. The app truly understands and adapts to my needs."
-    },
-    {
-      name: "David Thompson",
-      role: "Healthcare Worker",
-      avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&h=80&fit=crop&crop=face",
-      rating: 5,
-      text: "Working in healthcare is stressful, but Tranquil AI's sleep music and guided meditations help me unwind and recharge. It's become an essential part of my routine."
+      text: "The mood tracking and journaling features helped me understand my anxiety patterns. The insights are incredibly accurate and the meditation sessions are perfectly timed for my schedule."
     }
   ];
 
@@ -61,39 +57,30 @@ const TestimonialsCarousel = () => {
     return () => clearInterval(timer);
   }, []);
 
-  const nextTestimonial = () => {
-    setCurrentIndex((prev) => (prev + 1) % testimonials.length);
-  };
-
-  const prevTestimonial = () => {
-    setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-  };
-
   return (
     <section 
       id="testimonials" 
-      className="py-20 bg-gradient-to-br from-slate-900 via-purple-900 to-indigo-900 relative overflow-hidden"
+      className="py-24 bg-gradient-to-br from-slate-50 to-indigo-50 relative overflow-hidden"
     >
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent transform -skew-y-12"></div>
-      </div>
-
       <div className="container mx-auto px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
         <div className={`text-center mb-16 transition-all duration-1000 ${
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`}>
-          <h2 className="text-4xl lg:text-5xl font-bold text-white mb-4">
-            What Our Users Say
+          <div className="inline-flex items-center space-x-2 bg-indigo-100 rounded-full px-4 py-2 mb-6">
+            <Star className="w-4 h-4 text-indigo-600" />
+            <span className="text-sm font-semibold text-indigo-700">Trusted Worldwide</span>
+          </div>
+          <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-6">
+            What Professionals Say
           </h2>
-          <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-            Real stories from people who've transformed their mental wellness journey
+          <p className="text-xl text-slate-600 max-w-2xl mx-auto">
+            Trusted by mental health professionals and users worldwide
           </p>
         </div>
 
-        {/* Carousel Container */}
+        {/* Testimonials */}
         <div className="relative max-w-4xl mx-auto">
           <div className="overflow-hidden">
             <div 
@@ -102,37 +89,39 @@ const TestimonialsCarousel = () => {
             >
               {testimonials.map((testimonial, index) => (
                 <div key={index} className="w-full flex-shrink-0 px-4">
-                  <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 lg:p-12 border border-white/20 shadow-2xl">
+                  <div className="bg-white rounded-3xl p-8 lg:p-12 shadow-2xl border border-slate-200 relative">
                     
+                    {/* Quote Icon */}
+                    <div className="absolute top-6 right-6">
+                      <Quote className="w-8 h-8 text-indigo-200" />
+                    </div>
+
                     {/* Stars */}
                     <div className="flex justify-center mb-6">
                       {Array.from({ length: testimonial.rating }).map((_, i) => (
                         <Star 
                           key={i} 
-                          className="w-6 h-6 text-yellow-400 fill-current animate-pulse"
-                          style={{ animationDelay: `${i * 0.1}s` }}
+                          className="w-5 h-5 text-yellow-400 fill-current"
                         />
                       ))}
                     </div>
 
                     {/* Testimonial Text */}
-                    <blockquote className="text-white text-lg lg:text-xl leading-relaxed text-center mb-8 italic">
+                    <blockquote className="text-lg lg:text-xl text-slate-700 leading-relaxed text-center mb-8 font-medium">
                       "{testimonial.text}"
                     </blockquote>
 
                     {/* User Info */}
                     <div className="flex items-center justify-center space-x-4">
-                      <div className="relative">
-                        <img 
-                          src={testimonial.avatar}
-                          alt={testimonial.name}
-                          className="w-16 h-16 rounded-full border-2 border-white/30"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-r from-blue-400/20 to-purple-400/20 rounded-full animate-pulse"></div>
-                      </div>
+                      <img 
+                        src={testimonial.avatar}
+                        alt={testimonial.name}
+                        className="w-16 h-16 rounded-full border-2 border-slate-200"
+                      />
                       <div className="text-center">
-                        <h4 className="text-white font-semibold text-lg">{testimonial.name}</h4>
-                        <p className="text-gray-300">{testimonial.role}</p>
+                        <h4 className="text-slate-900 font-semibold text-lg">{testimonial.name}</h4>
+                        <p className="text-slate-600">{testimonial.role}</p>
+                        <p className="text-slate-500 text-sm">{testimonial.company}</p>
                       </div>
                     </div>
                   </div>
@@ -141,17 +130,17 @@ const TestimonialsCarousel = () => {
             </div>
           </div>
 
-          {/* Navigation Buttons */}
+          {/* Navigation */}
           <button
-            onClick={prevTestimonial}
-            className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-4 lg:-translate-x-12 w-12 h-12 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all duration-300 border border-white/20"
+            onClick={() => setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length)}
+            className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-4 lg:-translate-x-12 w-12 h-12 bg-white rounded-full flex items-center justify-center text-slate-600 hover:text-indigo-600 shadow-lg hover:shadow-xl transition-all duration-300 border border-slate-200"
           >
             <ChevronLeft className="w-6 h-6" />
           </button>
 
           <button
-            onClick={nextTestimonial}
-            className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-4 lg:translate-x-12 w-12 h-12 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all duration-300 border border-white/20"
+            onClick={() => setCurrentIndex((prev) => (prev + 1) % testimonials.length)}
+            className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-4 lg:translate-x-12 w-12 h-12 bg-white rounded-full flex items-center justify-center text-slate-600 hover:text-indigo-600 shadow-lg hover:shadow-xl transition-all duration-300 border border-slate-200"
           >
             <ChevronRight className="w-6 h-6" />
           </button>
@@ -164,8 +153,8 @@ const TestimonialsCarousel = () => {
                 onClick={() => setCurrentIndex(index)}
                 className={`w-3 h-3 rounded-full transition-all duration-300 ${
                   index === currentIndex 
-                    ? 'bg-white scale-125' 
-                    : 'bg-white/40 hover:bg-white/60'
+                    ? 'bg-indigo-600 scale-125' 
+                    : 'bg-slate-300 hover:bg-slate-400'
                 }`}
               />
             ))}

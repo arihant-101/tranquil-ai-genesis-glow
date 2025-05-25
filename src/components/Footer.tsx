@@ -1,71 +1,100 @@
 
 import React from 'react';
-import { Heart, Mail, Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
+import { Heart, Mail, ArrowRight, Shield, Award, Clock } from 'lucide-react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 
 const Footer = () => {
   const navigationLinks = [
     { label: 'Features', href: '#features' },
+    { label: 'Pricing', href: '#pricing' },
     { label: 'About', href: '#about' },
-    { label: 'Support', href: '#support' },
     { label: 'Contact', href: '#contact' }
   ];
 
-  const legalLinks = [
+  const supportLinks = [
+    { label: 'Help Center', href: '#help' },
     { label: 'Privacy Policy', href: '#privacy' },
     { label: 'Terms of Service', href: '#terms' },
-    { label: 'Cookie Policy', href: '#cookies' }
+    { label: 'Security', href: '#security' }
   ];
 
-  const socialLinks = [
-    { icon: Facebook, href: '#', label: 'Facebook' },
-    { icon: Twitter, href: '#', label: 'Twitter' },
-    { icon: Instagram, href: '#', label: 'Instagram' },
-    { icon: Linkedin, href: '#', label: 'LinkedIn' }
+  const trustBadges = [
+    { icon: Shield, label: 'HIPAA Compliant' },
+    { icon: Award, label: 'Certified Secure' },
+    { icon: Clock, label: '24/7 Support' }
   ];
 
   return (
-    <footer className="bg-gradient-to-b from-slate-900 to-black py-16">
+    <footer className="bg-slate-900 py-16">
       <div className="container mx-auto px-6 lg:px-8">
         
+        {/* Newsletter Section */}
+        <div className="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-3xl p-8 lg:p-12 mb-16">
+          <div className="grid lg:grid-cols-2 gap-8 items-center">
+            <div>
+              <h3 className="text-3xl font-bold text-white mb-4">
+                Stay Updated on Mental Wellness
+              </h3>
+              <p className="text-indigo-100 text-lg">
+                Get weekly tips, research insights, and product updates delivered to your inbox.
+              </p>
+            </div>
+            <div className="space-y-4">
+              <div className="flex space-x-3">
+                <Input 
+                  type="email" 
+                  placeholder="Enter your email address"
+                  className="bg-white/10 border-white/20 text-white placeholder:text-indigo-200 focus:border-white focus:ring-white/20 flex-1"
+                />
+                <Button 
+                  className="bg-white text-indigo-600 hover:bg-gray-50 px-6 shrink-0"
+                >
+                  <ArrowRight className="w-4 h-4" />
+                </Button>
+              </div>
+              <p className="text-indigo-200 text-sm">
+                Join 50,000+ mental health professionals and wellness enthusiasts
+              </p>
+            </div>
+          </div>
+        </div>
+
         {/* Main Footer Content */}
-        <div className="grid lg:grid-cols-4 gap-8 mb-12">
+        <div className="grid lg:grid-cols-4 gap-12 mb-12">
           
           {/* Company Info */}
-          <div className="lg:col-span-2 space-y-4">
+          <div className="lg:col-span-2 space-y-6">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
+              <div className="w-12 h-12 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-2xl flex items-center justify-center">
                 <Heart className="w-6 h-6 text-white" />
               </div>
-              <h3 className="text-white text-xl font-bold">Tranquil AI</h3>
+              <h3 className="text-white text-2xl font-bold">Tranquil AI</h3>
             </div>
-            <p className="text-gray-400 leading-relaxed max-w-md">
-              Empowering individuals to take control of their mental wellness through innovative AI technology and evidence-based therapeutic approaches.
+            <p className="text-slate-300 leading-relaxed max-w-md text-lg">
+              Revolutionizing mental wellness through AI-powered therapy, personalized insights, and evidence-based tools designed for your unique journey.
             </p>
-            <div className="flex space-x-4">
-              {socialLinks.map((social, i) => (
-                <a
-                  key={i}
-                  href={social.href}
-                  className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/20 transition-all duration-300 group"
-                  aria-label={social.label}
-                >
-                  <social.icon className="w-5 h-5 group-hover:animate-bounce" />
-                </a>
+            
+            {/* Trust Badges */}
+            <div className="flex flex-wrap gap-4">
+              {trustBadges.map((badge, i) => (
+                <div key={i} className="flex items-center space-x-2 bg-slate-800 rounded-lg px-3 py-2">
+                  <badge.icon className="w-4 h-4 text-indigo-400" />
+                  <span className="text-slate-300 text-sm font-medium">{badge.label}</span>
+                </div>
               ))}
             </div>
           </div>
 
           {/* Navigation Links */}
-          <div className="space-y-4">
-            <h4 className="text-white font-semibold">Navigation</h4>
-            <ul className="space-y-2">
+          <div className="space-y-6">
+            <h4 className="text-white font-semibold text-lg">Product</h4>
+            <ul className="space-y-3">
               {navigationLinks.map((link, i) => (
                 <li key={i}>
                   <a 
                     href={link.href}
-                    className="text-gray-400 hover:text-white transition-colors duration-300 hover:underline"
+                    className="text-slate-300 hover:text-white transition-colors duration-300 hover:underline"
                   >
                     {link.label}
                   </a>
@@ -74,49 +103,40 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Newsletter Signup */}
-          <div className="space-y-4">
-            <h4 className="text-white font-semibold">Stay Updated</h4>
-            <p className="text-gray-400 text-sm">
-              Get the latest updates on mental wellness and new features.
-            </p>
-            <div className="space-y-3">
-              <Input 
-                type="email" 
-                placeholder="Enter your email"
-                className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:border-blue-400 focus:ring-blue-400/20"
-              />
-              <Button 
-                size="sm" 
-                className="w-full bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white border-0"
-              >
-                <Mail className="w-4 h-4 mr-2" />
-                Subscribe
-              </Button>
-            </div>
+          {/* Support Links */}
+          <div className="space-y-6">
+            <h4 className="text-white font-semibold text-lg">Support</h4>
+            <ul className="space-y-3">
+              {supportLinks.map((link, i) => (
+                <li key={i}>
+                  <a 
+                    href={link.href}
+                    className="text-slate-300 hover:text-white transition-colors duration-300 hover:underline"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
 
-        {/* Divider */}
-        <div className="border-t border-white/10 pt-8">
+        {/* Bottom Bar */}
+        <div className="border-t border-slate-700 pt-8">
           <div className="flex flex-col lg:flex-row justify-between items-center space-y-4 lg:space-y-0">
-            
-            {/* Copyright */}
-            <div className="text-gray-400 text-sm">
-              © 2024 Tranquil AI. All rights reserved. Made with ❤️ for mental wellness.
+            <div className="text-slate-400">
+              © 2024 Tranquil AI. All rights reserved. Built with ❤️ for mental wellness.
             </div>
-
-            {/* Legal Links */}
-            <div className="flex space-x-6">
-              {legalLinks.map((link, i) => (
-                <a 
-                  key={i}
-                  href={link.href}
-                  className="text-gray-400 hover:text-white text-sm transition-colors duration-300"
-                >
-                  {link.label}
-                </a>
-              ))}
+            <div className="flex items-center space-x-6">
+              <a href="#" className="text-slate-400 hover:text-white transition-colors">
+                Privacy
+              </a>
+              <a href="#" className="text-slate-400 hover:text-white transition-colors">
+                Terms
+              </a>
+              <a href="#" className="text-slate-400 hover:text-white transition-colors">
+                Cookies
+              </a>
             </div>
           </div>
         </div>

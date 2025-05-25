@@ -5,8 +5,6 @@ import HeroSection from '../components/HeroSection';
 import MoodLoggingSection from '../components/MoodLoggingSection';
 import AITherapistSection from '../components/AITherapistSection';
 import JournalingSection from '../components/JournalingSection';
-import SleepMusicSection from '../components/SleepMusicSection';
-import MeditationSection from '../components/MeditationSection';
 import TestimonialsCarousel from '../components/TestimonialsCarousel';
 import DownloadSection from '../components/DownloadSection';
 import Footer from '../components/Footer';
@@ -33,8 +31,6 @@ const Index = () => {
       <MoodLoggingSection />
       <AITherapistSection />
       <JournalingSection />
-      <SleepMusicSection />
-      <MeditationSection />
       <TestimonialsCarousel />
       <DownloadSection />
       <Footer />
