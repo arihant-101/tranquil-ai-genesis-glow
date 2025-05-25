@@ -2,6 +2,14 @@
 import React, { useState, useEffect } from 'react';
 import LoadingScreen from '../components/LoadingScreen';
 import HeroSection from '../components/HeroSection';
+import MoodLoggingSection from '../components/MoodLoggingSection';
+import AITherapistSection from '../components/AITherapistSection';
+import JournalingSection from '../components/JournalingSection';
+import SleepMusicSection from '../components/SleepMusicSection';
+import MeditationSection from '../components/MeditationSection';
+import TestimonialsCarousel from '../components/TestimonialsCarousel';
+import DownloadSection from '../components/DownloadSection';
+import Footer from '../components/Footer';
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -22,6 +30,14 @@ const Index = () => {
   return (
     <div className="min-h-screen">
       <HeroSection />
+      <MoodLoggingSection />
+      <AITherapistSection />
+      <JournalingSection />
+      <SleepMusicSection />
+      <MeditationSection />
+      <TestimonialsCarousel />
+      <DownloadSection />
+      <Footer />
     </div>
   );
 };
