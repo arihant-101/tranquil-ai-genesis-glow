@@ -199,7 +199,7 @@ const AITherapistSection = () => {
         </div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         @keyframes fadeInMessage {
           from {
             opacity: 0;
