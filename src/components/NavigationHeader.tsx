@@ -9,8 +9,11 @@ const NavigationHeader = () => {
   const navItems = [
     { id: 'hero', label: 'Home' },
     { id: 'mood-logging', label: 'Mood Tracking' },
+    { id: 'mood-analytics', label: 'Analytics' },
     { id: 'ai-therapist', label: 'AI Therapist' },
     { id: 'journaling', label: 'Journaling' },
+    { id: 'meditation', label: 'Meditation' },
+    { id: 'sleep-music', label: 'Sleep Music' },
     { id: 'pricing', label: 'Pricing' },
     { id: 'download', label: 'Download' },
   ];

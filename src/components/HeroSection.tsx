@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { Button } from './ui/button';
-import { ArrowRight, Play, Users, Award, Star } from 'lucide-react';
+import { ArrowRight, Play } from 'lucide-react';
 
 const HeroSection = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -11,7 +11,7 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section className="relative min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 overflow-hidden">
+    <section id="hero" className="relative min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0">
         <div className="absolute top-20 right-20 w-72 h-72 bg-gradient-to-r from-blue-400/10 to-indigo-400/10 rounded-full blur-3xl animate-pulse"></div>
@@ -24,12 +24,6 @@ const HeroSection = () => {
           {/* Left Column - Content */}
           <div className={`space-y-8 transition-all duration-1000 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             
-            {/* Trust Badge */}
-            <div className="inline-flex items-center space-x-2 bg-white/80 backdrop-blur-sm rounded-full px-4 py-2 border border-indigo-200 shadow-sm">
-              <Award className="w-4 h-4 text-indigo-600" />
-              <span className="text-sm font-medium text-indigo-700">Trusted by 100,000+ users worldwide</span>
-            </div>
-
             {/* Main Headline */}
             <div className="space-y-6">
               <h1 className="text-5xl lg:text-7xl font-bold text-slate-900 leading-tight">
@@ -65,25 +59,6 @@ const HeroSection = () => {
                 <Play className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
                 Watch Demo
               </Button>
-            </div>
-
-            {/* Social Proof */}
-            <div className="flex items-center space-x-8 pt-8">
-              <div className="flex items-center space-x-2">
-                <div className="flex -space-x-2">
-                  {[1,2,3,4].map(i => (
-                    <div key={i} className="w-8 h-8 rounded-full bg-gradient-to-r from-indigo-400 to-purple-400 border-2 border-white"></div>
-                  ))}
-                </div>
-                <span className="text-sm text-slate-600 font-medium">+100K happy users</span>
-              </div>
-              
-              <div className="flex items-center space-x-1">
-                {[1,2,3,4,5].map(i => (
-                  <Star key={i} className="w-4 h-4 text-yellow-400 fill-current" />
-                ))}
-                <span className="text-sm text-slate-600 font-medium ml-2">4.9/5 rating</span>
-              </div>
             </div>
           </div>
 
@@ -161,24 +136,8 @@ const HeroSection = () => {
                   </div>
                 </div>
               </div>
-
-              {/* Floating Elements */}
-              <div className="absolute -top-4 -right-4 w-12 h-12 bg-indigo-500 rounded-full flex items-center justify-center text-white shadow-lg animate-bounce">
-                <Users className="w-6 h-6" />
-              </div>
-              
-              <div className="absolute -bottom-4 -left-4 w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white shadow-lg animate-pulse">
-                <Award className="w-6 h-6" />
-              </div>
             </div>
           </div>
-        </div>
-      </div>
-
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <div className="w-6 h-10 border-2 border-slate-400 rounded-full flex justify-center">
-          <div className="w-1 h-3 bg-slate-400 rounded-full mt-2 animate-pulse"></div>
         </div>
       </div>
     </section>
