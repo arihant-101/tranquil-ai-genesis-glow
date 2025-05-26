@@ -5,15 +5,36 @@ import { BookOpen, Edit3, Calendar, TrendingUp } from 'lucide-react';
 const JournalingSection = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [typingText, setTypingText] = useState('');
+  const [parallaxOffset, setParallaxOffset] = useState(0);
 
   const journalEntry = "Today I practiced mindfulness during my morning coffee. I noticed how the warmth of the mug felt in my hands and really savored the first few sips. This small moment of presence helped me start the day with more intention and calm.";
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const element = document.getElementById('journaling');
+      if (element) {
+        const rect = element.getBoundingClientRect();
+        const elementTop = rect.top;
+        const elementHeight = rect.height;
+        const windowHeight = window.innerHeight;
+        
+        if (elementTop < windowHeight && elementTop + elementHeight > 0) {
+          const progress = Math.max(0, Math.min(1, (windowHeight - elementTop) / (windowHeight + elementHeight)));
+          setParallaxOffset(progress * 40 - 20);
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          // Typing animation
+          // Typewriter effect
           let currentIndex = 0;
           const timer = setInterval(() => {
             if (currentIndex < journalEntry.length) {
@@ -22,7 +43,7 @@ const JournalingSection = () => {
             } else {
               clearInterval(timer);
             }
-          }, 50);
+          }, 30);
         }
       },
       { threshold: 0.3 }
@@ -43,9 +64,12 @@ const JournalingSection = () => {
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           
           {/* Left Column - Content */}
-          <div className={`space-y-8 transition-all duration-1000 ${
-            isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-20'
-          }`}>
+          <div 
+            className={`space-y-8 transition-all duration-1000 ${
+              isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-20'
+            }`}
+            style={{ transform: `translateY(${parallaxOffset}px) translateX(${isVisible ? 0 : -80}px)` }}
+          >
             
             {/* Section Badge */}
             <div className="inline-flex items-center space-x-2 bg-emerald-100 rounded-full px-4 py-2">
@@ -104,9 +128,12 @@ const JournalingSection = () => {
           </div>
 
           {/* Right Column - Journal Interface */}
-          <div className={`transition-all duration-1000 delay-300 ${
-            isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-20'
-          }`}>
+          <div 
+            className={`transition-all duration-1000 delay-300 ${
+              isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-20'
+            }`}
+            style={{ transform: `translateY(${-parallaxOffset}px) translateX(${isVisible ? 0 : 80}px)` }}
+          >
             <div className="bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden">
               
               {/* Journal Header */}
@@ -129,7 +156,9 @@ const JournalingSection = () => {
                   <div className="bg-slate-50 rounded-xl p-4 min-h-[200px] border border-slate-200">
                     <p className="text-slate-900 leading-relaxed">
                       {typingText}
-                      <span className="animate-pulse">|</span>
+                      {typingText.length < journalEntry.length && (
+                        <span className="animate-pulse">|</span>
+                      )}
                     </p>
                   </div>
                 </div>

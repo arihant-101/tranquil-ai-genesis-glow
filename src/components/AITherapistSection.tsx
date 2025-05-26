@@ -5,6 +5,8 @@ import { MessageCircle, Zap, Clock, Shield, CheckCircle } from 'lucide-react';
 const AITherapistSection = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [currentMessage, setCurrentMessage] = useState(0);
+  const [typingText, setTypingText] = useState('');
+  const [parallaxOffset, setParallaxOffset] = useState(0);
 
   const conversation = [
     {
@@ -25,22 +27,52 @@ const AITherapistSection = () => {
   ];
 
   useEffect(() => {
+    const handleScroll = () => {
+      const element = document.getElementById('ai-therapist');
+      if (element) {
+        const rect = element.getBoundingClientRect();
+        const elementTop = rect.top;
+        const elementHeight = rect.height;
+        const windowHeight = window.innerHeight;
+        
+        if (elementTop < windowHeight && elementTop + elementHeight > 0) {
+          const progress = Math.max(0, Math.min(1, (windowHeight - elementTop) / (windowHeight + elementHeight)));
+          setParallaxOffset(progress * 50 - 25);
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          // Start message animation after visibility is set
-          setTimeout(() => {
-            const timer = setInterval(() => {
-              setCurrentMessage(prev => {
-                if (prev < conversation.length - 1) {
-                  return prev + 1;
+          
+          const startTyping = () => {
+            if (currentMessage < conversation.length) {
+              const message = conversation[currentMessage].message;
+              let currentIndex = 0;
+              
+              const typeWriter = setInterval(() => {
+                if (currentIndex < message.length) {
+                  setTypingText(message.slice(0, currentIndex + 1));
+                  currentIndex++;
+                } else {
+                  clearInterval(typeWriter);
+                  setTimeout(() => {
+                    setCurrentMessage(prev => prev + 1);
+                    setTypingText('');
+                  }, 1500);
                 }
-                clearInterval(timer);
-                return prev;
-              });
-            }, 1500);
-          }, 500);
+              }, 50);
+            }
+          };
+
+          setTimeout(startTyping, 500);
         }
       },
       { threshold: 0.2 }
@@ -50,7 +82,7 @@ const AITherapistSection = () => {
     if (section) observer.observe(section);
 
     return () => observer.disconnect();
-  }, []);
+  }, [currentMessage]);
 
   return (
     <section 
@@ -61,9 +93,12 @@ const AITherapistSection = () => {
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           
           {/* Left Column - Professional Chat Interface */}
-          <div className={`transition-all duration-1000 ${
-            isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-20'
-          }`}>
+          <div 
+            className={`transition-all duration-1000 ${
+              isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-20'
+            }`}
+            style={{ transform: `translateY(${parallaxOffset}px) translateX(${isVisible ? 0 : -80}px)` }}
+          >
             <div className="bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden">
               
               {/* Chat Header */}
@@ -84,7 +119,7 @@ const AITherapistSection = () => {
 
               {/* Chat Messages */}
               <div className="p-6 space-y-4 h-96 overflow-y-auto bg-slate-50">
-                {conversation.slice(0, currentMessage + 1).map((msg, i) => (
+                {conversation.slice(0, currentMessage).map((msg, i) => (
                   <div 
                     key={i}
                     className={`flex ${msg.type === 'user' ? 'justify-end' : 'justify-start'} opacity-0 animate-[fadeInMessage_0.6s_ease-out_forwards]`}
@@ -104,9 +139,25 @@ const AITherapistSection = () => {
                     </div>
                   </div>
                 ))}
+
+                {/* Current typing message */}
+                {currentMessage < conversation.length && typingText && (
+                  <div className={`flex ${conversation[currentMessage].type === 'user' ? 'justify-end' : 'justify-start'}`}>
+                    <div className={`max-w-xs lg:max-w-sm px-4 py-3 rounded-2xl shadow-sm ${
+                      conversation[currentMessage].type === 'user' 
+                        ? 'bg-indigo-600 text-white rounded-br-md' 
+                        : 'bg-white text-slate-900 rounded-bl-md border border-slate-200'
+                    }`}>
+                      <p className="text-sm leading-relaxed">
+                        {typingText}
+                        <span className="animate-pulse">|</span>
+                      </p>
+                    </div>
+                  </div>
+                )}
                 
                 {/* Typing indicator */}
-                {currentMessage < conversation.length - 1 && (
+                {currentMessage < conversation.length && !typingText && (
                   <div className="flex justify-start">
                     <div className="bg-white border border-slate-200 rounded-2xl rounded-bl-md px-4 py-3 shadow-sm">
                       <div className="flex space-x-1">
@@ -134,9 +185,12 @@ const AITherapistSection = () => {
           </div>
 
           {/* Right Column - Content */}
-          <div className={`space-y-8 transition-all duration-1000 delay-300 ${
-            isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-20'
-          }`}>
+          <div 
+            className={`space-y-8 transition-all duration-1000 delay-300 ${
+              isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-20'
+            }`}
+            style={{ transform: `translateY(${-parallaxOffset}px) translateX(${isVisible ? 0 : 80}px)` }}
+          >
             
             {/* Section Badge */}
             <div className="inline-flex items-center space-x-2 bg-indigo-100 rounded-full px-4 py-2">

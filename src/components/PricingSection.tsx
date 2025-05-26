@@ -1,10 +1,9 @@
 
 "use client"
 
-import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { ArrowRight, Check, Zap, ArrowDownToDot } from "lucide-react"
+import { ArrowRight, Check, Zap, Crown } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 interface Feature {
@@ -15,10 +14,7 @@ interface Feature {
 
 interface PricingTier {
   name: string
-  price: {
-    monthly: number
-    yearly: number
-  }
+  price: number
   description: string
   features: Feature[]
   highlight?: boolean
@@ -32,8 +28,6 @@ interface PricingSectionProps {
 }
 
 function PricingSection({ tiers, className }: PricingSectionProps) {
-  const [isYearly, setIsYearly] = useState(false)
-
   const buttonStyles = {
     default: cn(
       "h-12 bg-white dark:bg-slate-900",
@@ -63,6 +57,7 @@ function PricingSection({ tiers, className }: PricingSectionProps) {
 
   return (
     <section
+      id="pricing"
       className={cn(
         "relative bg-gradient-to-br from-slate-50 to-indigo-50",
         "py-24",
@@ -82,33 +77,11 @@ function PricingSection({ tiers, className }: PricingSectionProps) {
             <span className="text-indigo-600">Wellness Journey</span>
           </h2>
           <p className="text-xl text-slate-600 text-center max-w-2xl">
-            Flexible plans designed to support your mental health at every stage of your journey
+            Start your mental health journey with our free plan or upgrade for premium features
           </p>
-          
-          <div className="inline-flex items-center p-1.5 bg-white rounded-full border border-slate-200 shadow-sm">
-            {["Monthly", "Yearly"].map((period) => (
-              <button
-                key={period}
-                onClick={() => setIsYearly(period === "Yearly")}
-                className={cn(
-                  "px-8 py-2.5 text-sm font-medium rounded-full transition-all duration-300",
-                  (period === "Yearly") === isYearly
-                    ? "bg-indigo-600 text-white shadow-lg"
-                    : "text-slate-600 hover:text-slate-900",
-                )}
-              >
-                {period}
-                {period === "Yearly" && (
-                  <span className="ml-2 text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full">
-                    Save 20%
-                  </span>
-                )}
-              </button>
-            ))}
-          </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {tiers.map((tier, index) => (
             <div
               key={tier.name}
@@ -151,12 +124,14 @@ function PricingSection({ tiers, className }: PricingSectionProps) {
                     {tier.name}
                   </h3>
                   <div className="flex items-baseline justify-center gap-2 mb-2">
-                    <span className="text-5xl font-bold text-slate-900">
-                      ${isYearly ? tier.price.yearly : tier.price.monthly}
-                    </span>
-                    <span className="text-lg text-slate-500">
-                      /{isYearly ? "year" : "month"}
-                    </span>
+                    {tier.price === 0 ? (
+                      <span className="text-5xl font-bold text-slate-900">Free</span>
+                    ) : (
+                      <>
+                        <span className="text-5xl font-bold text-slate-900">₹{tier.price}</span>
+                        <span className="text-lg text-slate-500">/month</span>
+                      </>
+                    )}
                   </div>
                   <p className="text-slate-600">
                     {tier.description}
@@ -199,7 +174,7 @@ function PricingSection({ tiers, className }: PricingSectionProps) {
                   )}
                 >
                   <span className="relative z-10 flex items-center justify-center gap-2">
-                    {tier.highlight ? "Start Free Trial" : "Get Started"}
+                    {tier.price === 0 ? "Get Started Free" : "Start Premium"}
                     <ArrowRight className="w-4 h-4" />
                   </span>
                 </Button>
@@ -227,51 +202,45 @@ function PricingSection({ tiers, className }: PricingSectionProps) {
 
 const defaultTiers = [
   {
-    name: "Basic",
-    price: {
-      monthly: 9,
-      yearly: 86,
-    },
+    name: "Free Plan",
+    price: 0,
     description: "Perfect for getting started with mental wellness",
     icon: <Zap className="w-8 h-8" />,
     features: [
       {
-        name: "Daily Mood Tracking",
-        description: "Log and monitor your emotional patterns",
+        name: "Basic Mood Tracking",
+        description: "Log your daily emotions and moods",
         included: true,
       },
       {
-        name: "Basic AI Insights",
-        description: "Simple wellness recommendations",
+        name: "Limited AI Chat",
+        description: "5 conversations per week with AI therapist",
         included: true,
       },
       {
-        name: "Guided Journaling",
-        description: "5 journal prompts per week",
+        name: "Basic Journaling",
+        description: "Simple daily journal entries",
         included: true,
       },
       {
-        name: "Community Support",
-        description: "Access to peer support groups",
+        name: "Premium Features",
+        description: "Advanced insights and unlimited access",
         included: false,
       },
       {
-        name: "Professional Therapy",
-        description: "1-on-1 sessions with licensed therapists",
+        name: "Professional Support",
+        description: "Access to licensed therapists",
         included: false,
       },
     ],
   },
   {
     name: "Premium",
-    price: {
-      monthly: 29,
-      yearly: 278,
-    },
+    price: 199,
     description: "Complete mental wellness toolkit",
     highlight: true,
     badge: "Most Popular",
-    icon: <ArrowDownToDot className="w-8 h-8" />,
+    icon: <Crown className="w-8 h-8" />,
     features: [
       {
         name: "Advanced Mood Analytics",
@@ -279,18 +248,13 @@ const defaultTiers = [
         included: true,
       },
       {
-        name: "24/7 AI Therapist",
-        description: "Unlimited conversations with AI support",
+        name: "Unlimited AI Therapist",
+        description: "24/7 conversations with AI support",
         included: true,
       },
       {
-        name: "Unlimited Journaling",
-        description: "Personalized prompts and insights",
-        included: true,
-      },
-      {
-        name: "Community Support",
-        description: "Premium support groups and forums",
+        name: "Premium Journaling",
+        description: "Guided prompts and AI insights",
         included: true,
       },
       {
@@ -298,40 +262,9 @@ const defaultTiers = [
         description: "Guided sessions and sleep stories",
         included: true,
       },
-    ],
-  },
-  {
-    name: "Professional",
-    price: {
-      monthly: 79,
-      yearly: 758,
-    },
-    description: "For comprehensive mental health care",
-    icon: <Check className="w-8 h-8" />,
-    features: [
       {
-        name: "Everything in Premium",
-        description: "All premium features included",
-        included: true,
-      },
-      {
-        name: "Licensed Therapist Access",
-        description: "4 sessions per month with professionals",
-        included: true,
-      },
-      {
-        name: "Crisis Intervention",
-        description: "24/7 emergency mental health support",
-        included: true,
-      },
-      {
-        name: "Family Account",
-        description: "Up to 4 family members included",
-        included: true,
-      },
-      {
-        name: "Personalized Treatment Plans",
-        description: "Custom therapy plans based on your needs",
+        name: "Professional Support",
+        description: "Monthly sessions with licensed therapists",
         included: true,
       },
     ],

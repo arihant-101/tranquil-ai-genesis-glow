@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import LoadingScreen from '../components/LoadingScreen';
+import NavigationHeader from '../components/NavigationHeader';
 import HeroSection from '../components/HeroSection';
 import MoodLoggingSection from '../components/MoodLoggingSection';
 import AITherapistSection from '../components/AITherapistSection';
@@ -27,13 +28,16 @@ const Index = () => {
 
   return (
     <div className="min-h-screen">
-      <HeroSection />
-      <MoodLoggingSection />
-      <AITherapistSection />
-      <JournalingSection />
-      <PricingSection tiers={defaultTiers} />
-      <DownloadSection />
-      <Footer />
+      <NavigationHeader />
+      <div className="pt-16"> {/* Add padding-top to account for fixed header */}
+        <HeroSection />
+        <MoodLoggingSection />
+        <AITherapistSection />
+        <JournalingSection />
+        <PricingSection tiers={defaultTiers} />
+        <DownloadSection />
+        <Footer />
+      </div>
     </div>
   );
 };
