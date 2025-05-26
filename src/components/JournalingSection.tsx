@@ -1,13 +1,12 @@
 
 import React, { useEffect, useState } from 'react';
-import { BookOpen, Edit3, Calendar } from 'lucide-react';
+import { BookOpen, Edit3, Calendar, TrendingUp } from 'lucide-react';
 
 const JournalingSection = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [typingText, setTypingText] = useState('');
-  const [isExpanded, setIsExpanded] = useState(false);
 
-  const journalEntry = "Today I felt a sense of accomplishment after completing my morning meditation. The breathing exercises really helped center my thoughts and I noticed I was more patient during my work meetings. I want to continue building this habit because I can see how it's positively affecting my mood and interactions with others...";
+  const journalEntry = "Today I practiced mindfulness during my morning coffee. I noticed how the warmth of the mug felt in my hands and really savored the first few sips. This small moment of presence helped me start the day with more intention and calm.";
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -38,111 +37,136 @@ const JournalingSection = () => {
   return (
     <section 
       id="journaling" 
-      className="min-h-screen bg-gradient-to-br from-slate-900 via-green-900 to-emerald-800 py-20"
+      className="py-24 bg-white relative overflow-hidden"
     >
-      <div className="container mx-auto px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+      <div className="container mx-auto px-6 lg:px-8 relative z-10">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
           
-          {/* Left Column - Digital Notebook */}
-          <div className={`transition-all duration-1000 ${
+          {/* Left Column - Content */}
+          <div className={`space-y-8 transition-all duration-1000 ${
             isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-20'
           }`}>
-            <div className="relative">
-              <div className="w-96 h-[500px] bg-gradient-to-b from-amber-50 to-amber-100 rounded-lg shadow-2xl border border-amber-200 mx-auto">
-                
-                {/* Notebook Spiral */}
-                <div className="absolute left-8 top-0 bottom-0 w-1 bg-red-400 rounded-full"></div>
-                <div className="absolute left-6 top-4 space-y-6">
-                  {Array.from({ length: 12 }).map((_, i) => (
-                    <div key={i} className="w-2 h-2 bg-gray-400 rounded-full"></div>
-                  ))}
-                </div>
-
-                {/* Notebook Content */}
-                <div className="p-12 pt-8">
-                  <div className="mb-6">
-                    <h3 className="text-gray-800 text-lg font-semibold mb-2">Daily Reflection</h3>
-                    <div className="flex items-center space-x-2 text-gray-600 text-sm">
-                      <Calendar className="w-4 h-4" />
-                      <span>March 15, 2024</span>
-                    </div>
-                  </div>
-
-                  <div className="space-y-4">
-                    <div className="min-h-[200px] bg-white/50 rounded p-4 border border-amber-200">
-                      <p className="text-gray-800 leading-relaxed">
-                        {typingText}
-                        <span className="animate-pulse">|</span>
-                      </p>
-                    </div>
-
-                    <button
-                      onClick={() => setIsExpanded(!isExpanded)}
-                      className={`text-emerald-600 hover:text-emerald-700 text-sm font-medium transition-all duration-300 ${
-                        isExpanded ? 'opacity-100' : 'opacity-70 hover:opacity-100'
-                      }`}
-                    >
-                      {isExpanded ? 'Show Less' : 'Read Full Entry'}
-                    </button>
-
-                    {isExpanded && (
-                      <div className="bg-white/50 rounded p-4 border border-amber-200 animate-accordion-down">
-                        <p className="text-gray-800 leading-relaxed">
-                          I'm grateful for the small moments of peace throughout the day. Tomorrow I want to focus on being more present during conversations and really listening to others.
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                {/* Floating Pen */}
-                <div className="absolute -right-4 top-20 transform rotate-12">
-                  <Edit3 className="w-8 h-8 text-amber-600 animate-pulse" />
-                </div>
-              </div>
-
-              {/* Floating Journal Pages */}
-              <div className="absolute -top-2 -left-2 w-80 h-96 bg-amber-50/80 rounded-lg transform rotate-3 -z-10"></div>
-              <div className="absolute -top-4 -left-4 w-80 h-96 bg-amber-100/60 rounded-lg transform rotate-6 -z-20"></div>
+            
+            {/* Section Badge */}
+            <div className="inline-flex items-center space-x-2 bg-emerald-100 rounded-full px-4 py-2">
+              <Edit3 className="w-4 h-4 text-emerald-600" />
+              <span className="text-sm font-semibold text-emerald-700">Digital Journaling</span>
             </div>
-          </div>
 
-          {/* Right Column - Content */}
-          <div className={`text-white space-y-8 transition-all duration-1000 delay-300 ${
-            isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-20'
-          }`}>
-            <div className="space-y-4">
-              <h2 className="text-5xl font-bold leading-tight">
-                Express Your
+            <div className="space-y-6">
+              <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 leading-tight">
+                Express & Reflect
                 <br />
-                <span className="bg-gradient-to-r from-emerald-400 to-green-400 bg-clip-text text-transparent">
-                  Inner Thoughts
-                </span>
+                <span className="text-emerald-600">Your Inner World</span>
               </h2>
-              <p className="text-xl text-gray-300 leading-relaxed">
-                Discover the therapeutic power of journaling with guided prompts and insights
+              
+              <p className="text-xl text-slate-600 leading-relaxed">
+                Guided journaling with AI-powered prompts and insights to help you process emotions, track progress, and develop self-awareness.
               </p>
             </div>
 
-            <div className="space-y-4">
+            {/* Features */}
+            <div className="space-y-6">
               {[
-                { icon: BookOpen, text: "Daily prompts designed by mental health experts" },
-                { icon: Edit3, text: "Free-form writing with mood-based suggestions" },
-                { icon: Calendar, text: "Track emotional growth over time" }
+                {
+                  icon: BookOpen,
+                  title: "Guided Prompts",
+                  description: "Daily prompts designed by therapists to encourage meaningful reflection"
+                },
+                {
+                  icon: Calendar,
+                  title: "Progress Tracking", 
+                  description: "Visualize your emotional growth and identify patterns over time"
+                },
+                {
+                  icon: TrendingUp,
+                  title: "AI Insights",
+                  description: "Receive personalized insights based on your journaling patterns"
+                }
               ].map((feature, i) => (
                 <div 
                   key={i}
-                  className={`flex items-center space-x-4 transition-all duration-500 ${
+                  className={`flex items-start space-x-4 transition-all duration-500 ${
                     isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
                   }`}
-                  style={{ transitionDelay: `${(i + 1) * 200 + 500}ms` }}
+                  style={{ transitionDelay: `${(i + 1) * 200}ms` }}
                 >
-                  <div className="w-12 h-12 bg-gradient-to-r from-emerald-500/20 to-green-500/20 rounded-full flex items-center justify-center">
-                    <feature.icon className="w-6 h-6 text-emerald-400" />
+                  <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <feature.icon className="w-6 h-6 text-emerald-600" />
                   </div>
-                  <p className="text-lg text-gray-300">{feature.text}</p>
+                  <div>
+                    <h3 className="font-semibold text-slate-900 mb-1">{feature.title}</h3>
+                    <p className="text-slate-600">{feature.description}</p>
+                  </div>
                 </div>
               ))}
+            </div>
+          </div>
+
+          {/* Right Column - Journal Interface */}
+          <div className={`transition-all duration-1000 delay-300 ${
+            isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-20'
+          }`}>
+            <div className="bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden">
+              
+              {/* Journal Header */}
+              <div className="bg-gradient-to-r from-emerald-500 to-teal-500 p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="text-white font-semibold text-lg">Daily Reflection</h3>
+                    <p className="text-emerald-100 text-sm">March 15, 2024</p>
+                  </div>
+                  <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center">
+                    <BookOpen className="w-5 h-5 text-white" />
+                  </div>
+                </div>
+              </div>
+
+              {/* Journal Content */}
+              <div className="p-6">
+                <div className="mb-6">
+                  <h4 className="font-semibold text-slate-900 mb-2">How did you practice mindfulness today?</h4>
+                  <div className="bg-slate-50 rounded-xl p-4 min-h-[200px] border border-slate-200">
+                    <p className="text-slate-900 leading-relaxed">
+                      {typingText}
+                      <span className="animate-pulse">|</span>
+                    </p>
+                  </div>
+                </div>
+
+                {/* Mood & Tags */}
+                <div className="space-y-4">
+                  <div>
+                    <p className="text-sm font-medium text-slate-700 mb-2">Today's Mood</p>
+                    <div className="flex space-x-2">
+                      {['😌', '😊', '🤔', '😴', '🙂'].map((emoji, i) => (
+                        <div 
+                          key={i}
+                          className={`w-10 h-10 rounded-lg flex items-center justify-center transition-all ${
+                            i === 1 ? 'bg-emerald-100 scale-110' : 'bg-slate-100 hover:bg-slate-200'
+                          }`}
+                        >
+                          {emoji}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div>
+                    <p className="text-sm font-medium text-slate-700 mb-2">Tags</p>
+                    <div className="flex flex-wrap gap-2">
+                      {['mindfulness', 'gratitude', 'morning routine'].map((tag, i) => (
+                        <span 
+                          key={i}
+                          className="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-sm font-medium"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
