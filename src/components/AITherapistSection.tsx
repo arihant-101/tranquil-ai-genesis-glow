@@ -29,19 +29,21 @@ const AITherapistSection = () => {
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          // Animate messages
-          const timer = setInterval(() => {
-            setCurrentMessage(prev => {
-              if (prev < conversation.length - 1) {
-                return prev + 1;
-              }
-              clearInterval(timer);
-              return prev;
-            });
-          }, 2000);
+          // Start message animation after visibility is set
+          setTimeout(() => {
+            const timer = setInterval(() => {
+              setCurrentMessage(prev => {
+                if (prev < conversation.length - 1) {
+                  return prev + 1;
+                }
+                clearInterval(timer);
+                return prev;
+              });
+            }, 1500);
+          }, 500);
         }
       },
-      { threshold: 0.3 }
+      { threshold: 0.2 }
     );
 
     const section = document.getElementById('ai-therapist');
@@ -85,7 +87,8 @@ const AITherapistSection = () => {
                 {conversation.slice(0, currentMessage + 1).map((msg, i) => (
                   <div 
                     key={i}
-                    className={`flex ${msg.type === 'user' ? 'justify-end' : 'justify-start'} animate-fade-in`}
+                    className={`flex ${msg.type === 'user' ? 'justify-end' : 'justify-start'} opacity-0 animate-[fadeInMessage_0.6s_ease-out_forwards]`}
+                    style={{ animationDelay: `${i * 500}ms` }}
                   >
                     <div className={`max-w-xs lg:max-w-sm px-4 py-3 rounded-2xl shadow-sm ${
                       msg.type === 'user' 
@@ -101,6 +104,19 @@ const AITherapistSection = () => {
                     </div>
                   </div>
                 ))}
+                
+                {/* Typing indicator */}
+                {currentMessage < conversation.length - 1 && (
+                  <div className="flex justify-start">
+                    <div className="bg-white border border-slate-200 rounded-2xl rounded-bl-md px-4 py-3 shadow-sm">
+                      <div className="flex space-x-1">
+                        <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce"></div>
+                        <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                        <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* Chat Input */}
@@ -109,8 +125,8 @@ const AITherapistSection = () => {
                   <div className="flex-1 bg-slate-100 rounded-xl px-4 py-3">
                     <p className="text-slate-500 text-sm">Type your message...</p>
                   </div>
-                  <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center">
-                    <span className="text-white">→</span>
+                  <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center hover:bg-indigo-700 transition-colors cursor-pointer">
+                    <span className="text-white text-lg">→</span>
                   </div>
                 </div>
               </div>
@@ -182,6 +198,19 @@ const AITherapistSection = () => {
           </div>
         </div>
       </div>
+
+      <style jsx>{`
+        @keyframes fadeInMessage {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
     </section>
   );
 };

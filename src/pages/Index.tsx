@@ -5,7 +5,7 @@ import HeroSection from '../components/HeroSection';
 import MoodLoggingSection from '../components/MoodLoggingSection';
 import AITherapistSection from '../components/AITherapistSection';
 import JournalingSection from '../components/JournalingSection';
-import TestimonialsCarousel from '../components/TestimonialsCarousel';
+import { PricingSection, defaultTiers } from '../components/PricingSection';
 import DownloadSection from '../components/DownloadSection';
 import Footer from '../components/Footer';
 
@@ -31,7 +31,7 @@ const Index = () => {
       <MoodLoggingSection />
       <AITherapistSection />
       <JournalingSection />
-      <TestimonialsCarousel />
+      <PricingSection tiers={defaultTiers} />
       <DownloadSection />
       <Footer />
     </div>
