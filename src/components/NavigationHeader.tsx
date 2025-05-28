@@ -8,8 +8,7 @@ const NavigationHeader = () => {
 
   const navItems = [
     { id: 'hero', label: 'Home' },
-    { id: 'mood-logging', label: 'Mood Tracking' },
-    { id: 'mood-analytics', label: 'Analytics' },
+    { id: 'mood-logging', label: 'Mood Logging' },
     { id: 'ai-therapist', label: 'AI Therapist' },
     { id: 'journaling', label: 'Journaling' },
     { id: 'meditation', label: 'Meditation' },
@@ -49,10 +48,16 @@ const NavigationHeader = () => {
       <div className="container mx-auto px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">M</span>
+            <div className="w-8 h-8 rounded-lg overflow-hidden">
+              <img 
+                src="/lovable-uploads/4ff8c635-4623-4551-92f9-81f4ec850a34.png" 
+                alt="Tranquil AI Logo" 
+                className="w-full h-full object-cover"
+              />
             </div>
-            <span className="text-xl font-bold text-slate-900">MindWell</span>
+            <span className="text-xl font-bold bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent">
+              Tranquil AI
+            </span>
           </div>
 
           {/* Desktop Navigation */}
@@ -63,13 +68,13 @@ const NavigationHeader = () => {
                 onClick={() => scrollToSection(item.id)}
                 className={`relative px-3 py-2 text-sm font-medium transition-colors ${
                   activeSection === item.id
-                    ? 'text-indigo-600'
+                    ? 'text-cyan-600'
                     : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
                 {item.label}
                 {activeSection === item.id && (
-                  <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-indigo-600 rounded-full" />
+                  <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-full" />
                 )}
               </button>
             ))}
@@ -94,7 +99,7 @@ const NavigationHeader = () => {
                   onClick={() => scrollToSection(item.id)}
                   className={`text-left px-3 py-2 text-sm font-medium transition-colors ${
                     activeSection === item.id
-                      ? 'text-indigo-600 bg-indigo-50'
+                      ? 'text-cyan-600 bg-cyan-50'
                       : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
                   } rounded-lg`}
                 >
