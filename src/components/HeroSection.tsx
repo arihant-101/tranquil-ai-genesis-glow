@@ -87,7 +87,7 @@ const HeroSection = () => {
                     <div className="flex justify-between items-start mb-6">
                       <div>
                         <h3 className="text-slate-600 text-lg">Welcome back,</h3>
-                        <h2 className="text-slate-900 font-bold text-xl">Mohan</h2>
+                        <h2 className="text-slate-900 font-bold text-xl">User</h2>
                       </div>
                       <div className="flex space-x-3">
                         <div className="w-12 h-12 bg-gradient-to-br from-orange-400 to-orange-500 rounded-full flex items-center justify-center">

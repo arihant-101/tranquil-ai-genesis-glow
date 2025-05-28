@@ -1,11 +1,9 @@
 
 import React, { useEffect, useState } from 'react';
 import { TrendingUp, Brain, BarChart3, Calendar } from 'lucide-react';
-import { LineChart, Line, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 
 const MoodLoggingSection = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [animatedValue, setAnimatedValue] = useState(0);
   const [currentMoodIndex, setCurrentMoodIndex] = useState(0);
 
   const moods = [
@@ -14,7 +12,7 @@ const MoodLoggingSection = () => {
       color: 'from-red-400 to-red-600', 
       bgColor: 'bg-gradient-to-br from-red-400 to-red-600',
       icon: '😢',
-      shape: 'star',
+      shape: 'starburst',
       description: 'Feeling down and need support'
     },
     { 
@@ -51,38 +49,11 @@ const MoodLoggingSection = () => {
     }
   ];
 
-  // Sample data for charts
-  const moodTrendData = [
-    { date: 'Mon', mood: 7, energy: 6, stress: 3 },
-    { date: 'Tue', mood: 8, energy: 7, stress: 2 },
-    { date: 'Wed', mood: 6, energy: 5, stress: 5 },
-    { date: 'Thu', mood: 9, energy: 8, stress: 2 },
-    { date: 'Fri', mood: 7, energy: 6, stress: 4 },
-    { date: 'Sat', mood: 8, energy: 9, stress: 1 },
-    { date: 'Sun', mood: 9, energy: 8, stress: 2 },
-  ];
-
-  const moodDistribution = [
-    { name: 'Very Pleasant', value: 35, color: '#8B5CF6' },
-    { name: 'Pleasant', value: 25, color: '#3B82F6' },
-    { name: 'Neutral', value: 20, color: '#10B981' },
-    { name: 'Unpleasant', value: 15, color: '#F59E0B' },
-    { name: 'Very Unpleasant', value: 5, color: '#EF4444' },
-  ];
-
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          // Animate chart values
-          let start = 0;
-          const end = 85;
-          const timer = setInterval(() => {
-            start += 2;
-            setAnimatedValue(start);
-            if (start >= end) clearInterval(timer);
-          }, 30);
         }
       },
       { threshold: 0.3 }
@@ -103,7 +74,7 @@ const MoodLoggingSection = () => {
   }, []);
 
   const renderMoodShape = (mood: any, isActive: boolean) => {
-    const baseClasses = `w-32 h-32 flex items-center justify-center text-4xl transition-all duration-500 ${
+    const baseClasses = `w-40 h-40 flex items-center justify-center text-5xl transition-all duration-500 ${
       isActive ? 'scale-110 opacity-100' : 'scale-90 opacity-70'
     }`;
 
@@ -119,6 +90,16 @@ const MoodLoggingSection = () => {
       return (
         <div className={`${baseClasses} ${mood.bgColor}`} style={{
           clipPath: 'polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)'
+        }}>
+          {mood.icon}
+        </div>
+      );
+    }
+
+    if (mood.shape === 'starburst') {
+      return (
+        <div className={`${baseClasses} ${mood.bgColor}`} style={{
+          clipPath: 'polygon(50% 0%, 59% 22%, 82% 22%, 67% 41%, 85% 59%, 59% 59%, 50% 81%, 41% 59%, 15% 59%, 33% 41%, 18% 22%, 41% 22%)'
         }}>
           {mood.icon}
         </div>
@@ -158,12 +139,11 @@ const MoodLoggingSection = () => {
           </p>
         </div>
 
-        {/* Mood Showcase - Lateral Scrolling Effect */}
-        <div className={`mb-16 transition-all duration-1000 delay-200 ${
-          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-        }`}>
-          <div className="relative">
-            {/* Phone Mockup Container */}
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          {/* Left Side - Mood Logging Interface */}
+          <div className={`transition-all duration-1000 delay-200 ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}>
             <div className="relative mx-auto max-w-sm bg-slate-900 rounded-[3rem] p-2 shadow-2xl">
               <div className="bg-white rounded-[2.5rem] overflow-hidden h-[600px] relative">
                 
@@ -177,7 +157,7 @@ const MoodLoggingSection = () => {
                   </div>
                 </div>
 
-                {/* Mood Selection Interface */}
+                {/* Mood Selection Interface - Exactly matching uploaded images */}
                 <div className={`h-full transition-all duration-1000 ${moods[currentMoodIndex].bgColor} relative overflow-hidden`}>
                   
                   {/* Header Text */}
@@ -245,138 +225,53 @@ const MoodLoggingSection = () => {
                 </div>
               </div>
             </div>
-
-            {/* Side indicators */}
-            <div className="absolute left-4 top-1/2 transform -translate-y-1/2 space-y-4">
-              {moods.map((mood, index) => (
-                <div
-                  key={index}
-                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                    index === currentMoodIndex ? mood.bgColor : 'bg-slate-300'
-                  }`}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Analytics Section */}
-        <div className="grid lg:grid-cols-2 gap-8 mb-12">
-          {/* Mood Trend Chart */}
-          <div className={`bg-white rounded-2xl p-6 shadow-lg border border-slate-200 transition-all duration-1000 delay-400 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          }`}>
-            <div className="flex items-center space-x-3 mb-6">
-              <div className="w-12 h-12 bg-cyan-100 rounded-xl flex items-center justify-center">
-                <TrendingUp className="w-6 h-6 text-cyan-600" />
-              </div>
-              <div>
-                <h3 className="text-xl font-bold text-slate-900">Weekly Mood Trends</h3>
-                <p className="text-slate-600">Track your emotional patterns</p>
-              </div>
-            </div>
-            <ResponsiveContainer width="100%" height={300}>
-              <LineChart data={moodTrendData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" />
-                <XAxis dataKey="date" stroke="#64748B" />
-                <YAxis domain={[0, 10]} stroke="#64748B" />
-                <Tooltip 
-                  contentStyle={{ 
-                    backgroundColor: 'white', 
-                    border: '1px solid #E2E8F0', 
-                    borderRadius: '12px',
-                    boxShadow: '0 10px 25px rgba(0,0,0,0.1)'
-                  }} 
-                />
-                <Line type="monotone" dataKey="mood" stroke="#06B6D4" strokeWidth={3} dot={{ fill: '#06B6D4', strokeWidth: 2, r: 6 }} />
-                <Line type="monotone" dataKey="energy" stroke="#10B981" strokeWidth={3} dot={{ fill: '#10B981', strokeWidth: 2, r: 6 }} />
-                <Line type="monotone" dataKey="stress" stroke="#EF4444" strokeWidth={3} dot={{ fill: '#EF4444', strokeWidth: 2, r: 6 }} />
-              </LineChart>
-            </ResponsiveContainer>
           </div>
 
-          {/* Mood Distribution Pie Chart */}
-          <div className={`bg-white rounded-2xl p-6 shadow-lg border border-slate-200 transition-all duration-1000 delay-600 ${
+          {/* Right Side - Content */}
+          <div className={`space-y-8 transition-all duration-1000 delay-400 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}>
-            <div className="flex items-center space-x-3 mb-6">
-              <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
-                <BarChart3 className="w-6 h-6 text-blue-600" />
-              </div>
-              <div>
-                <h3 className="text-xl font-bold text-slate-900">Mood Distribution</h3>
-                <p className="text-slate-600">This month's emotional balance</p>
-              </div>
+            <div>
+              <h3 className="text-3xl font-bold text-slate-900 mb-4">
+                Express Your Emotions Naturally
+              </h3>
+              <p className="text-lg text-slate-600 leading-relaxed mb-6">
+                Our intuitive mood logging system captures the full spectrum of your emotional experience. 
+                From challenging moments to peak happiness, every feeling matters in your wellness journey.
+              </p>
             </div>
-            <ResponsiveContainer width="100%" height={300}>
-              <PieChart>
-                <Pie
-                  data={moodDistribution}
-                  cx="50%"
-                  cy="50%"
-                  innerRadius={60}
-                  outerRadius={120}
-                  paddingAngle={5}
-                  dataKey="value"
-                >
-                  {moodDistribution.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
-                  ))}
-                </Pie>
-                <Tooltip 
-                  contentStyle={{ 
-                    backgroundColor: 'white', 
-                    border: '1px solid #E2E8F0', 
-                    borderRadius: '12px',
-                    boxShadow: '0 10px 25px rgba(0,0,0,0.1)'
-                  }} 
-                />
-              </PieChart>
-            </ResponsiveContainer>
-            <div className="flex flex-wrap justify-center gap-3 mt-4">
-              {moodDistribution.map((item, index) => (
-                <div key={index} className="flex items-center space-x-2">
-                  <div className="w-3 h-3 rounded-full" style={{ backgroundColor: item.color }}></div>
-                  <span className="text-sm text-slate-600">{item.name}</span>
+
+            {/* Feature List */}
+            <div className="space-y-6">
+              {[
+                {
+                  icon: Brain,
+                  title: "Smart Mood Detection",
+                  description: "AI-powered insights help understand your emotional patterns and triggers"
+                },
+                {
+                  icon: Calendar,
+                  title: "Daily Tracking", 
+                  description: "Build healthy habits with consistent mood monitoring and reflection"
+                },
+                {
+                  icon: TrendingUp,
+                  title: "Progress Insights",
+                  description: "See your emotional growth and patterns over time with detailed analytics"
+                }
+              ].map((feature, i) => (
+                <div key={i} className="flex items-start space-x-4">
+                  <div className="w-12 h-12 bg-gradient-to-r from-cyan-100 to-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <feature.icon className="w-6 h-6 text-cyan-600" />
+                  </div>
+                  <div>
+                    <h4 className="text-xl font-bold text-slate-900 mb-2">{feature.title}</h4>
+                    <p className="text-slate-600 leading-relaxed">{feature.description}</p>
+                  </div>
                 </div>
               ))}
             </div>
           </div>
-        </div>
-
-        {/* Feature List */}
-        <div className="grid md:grid-cols-3 gap-8">
-          {[
-            {
-              icon: Brain,
-              title: "Smart Analytics",
-              description: "AI-powered insights help you understand your emotional patterns and triggers"
-            },
-            {
-              icon: Calendar,
-              title: "Historical Tracking", 
-              description: "Track mood patterns over weeks, months, and years to see your growth"
-            },
-            {
-              icon: TrendingUp,
-              title: "Predictive Insights",
-              description: "Get personalized recommendations based on your mood history"
-            }
-          ].map((feature, i) => (
-            <div 
-              key={i}
-              className={`bg-white rounded-2xl p-6 shadow-lg border border-slate-200 transition-all duration-1000 hover:scale-105 ${
-                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-              }`}
-              style={{ transitionDelay: `${(i + 4) * 200}ms` }}
-            >
-              <div className="w-12 h-12 bg-gradient-to-r from-cyan-100 to-blue-100 rounded-xl flex items-center justify-center mb-4">
-                <feature.icon className="w-6 h-6 text-cyan-600" />
-              </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-3">{feature.title}</h3>
-              <p className="text-slate-600 leading-relaxed">{feature.description}</p>
-            </div>
-          ))}
         </div>
       </div>
     </section>
