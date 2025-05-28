@@ -38,7 +38,7 @@ const LoadingScreen = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-black flex items-center justify-center relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-cyan-900 flex items-center justify-center relative overflow-hidden">
       <div className="relative z-10 flex flex-col items-center">
         {/* Logo Container with Progress Ring */}
         <div className="relative mb-8">
@@ -57,7 +57,7 @@ const LoadingScreen = () => {
                 strokeWidth="3"
                 fill="none"
               />
-              {/* Progress circle with gradient */}
+              {/* Progress circle with new gradient */}
               <circle
                 cx="50"
                 cy="50"
@@ -70,27 +70,27 @@ const LoadingScreen = () => {
                 strokeDashoffset={`${2 * Math.PI * 42 * (1 - progress / 100)}`}
                 className="transition-all duration-75 ease-out"
               />
-              {/* Gradient definition matching your color scheme */}
+              {/* Updated gradient definition */}
               <defs>
                 <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#4F46E5" />
-                  <stop offset="100%" stopColor="#06B6D4" />
+                  <stop offset="0%" stopColor="#06B6D4" />
+                  <stop offset="50%" stopColor="#3B82F6" />
+                  <stop offset="100%" stopColor="#1E40AF" />
                 </linearGradient>
               </defs>
             </svg>
             
-            {/* Circular Logo */}
+            {/* Tranquil AI Logo */}
             <div 
-              className={`absolute inset-3 rounded-full bg-gradient-to-br from-blue-600 via-purple-600 to-cyan-500 shadow-2xl transition-all duration-1500 ease-out flex items-center justify-center ${
+              className={`absolute inset-3 rounded-full flex items-center justify-center transition-all duration-1500 ease-out ${
                 logoVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
               }`}
             >
-              {/* Inner logo design - minimalist circular pattern */}
-              <div className="w-16 h-16 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center border border-white/20">
-                <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
-                  <div className="w-3 h-3 rounded-full bg-white"></div>
-                </div>
-              </div>
+              <img 
+                src="/lovable-uploads/4ff8c635-4623-4551-92f9-81f4ec850a34.png" 
+                alt="Tranquil AI Logo" 
+                className="w-full h-full rounded-full object-cover"
+              />
             </div>
           </div>
         </div>
