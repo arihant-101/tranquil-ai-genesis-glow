@@ -1,14 +1,24 @@
-
 import React, { useEffect, useState } from 'react';
 import { Button } from './ui/button';
 import { ArrowRight, Play } from 'lucide-react';
 
 const HeroSection = () => {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isRedirecting, setIsRedirecting] = useState(false);
 
   useEffect(() => {
     setIsLoaded(true);
   }, []);
+
+  const handleStartJourney = () => {
+    setIsRedirecting(true);
+    
+    setTimeout(() => {
+      // Redirect to the coming soon page
+      window.location.href = '/comingsoon.html';
+      setIsRedirecting(false);
+    }, 500);
+  };
 
   return (
     <section id="hero" className="relative min-h-screen bg-gradient-to-br from-slate-50 via-cyan-50 to-blue-100 overflow-hidden">
@@ -45,21 +55,33 @@ const HeroSection = () => {
             <div className="flex flex-col sm:flex-row gap-4">
               <Button 
                 size="lg" 
-                className="bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 text-white px-8 py-4 text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group"
+                onClick={handleStartJourney}
+                disabled={isRedirecting}
+                className={`bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 text-white px-8 py-4 text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group ${
+                  isRedirecting ? 'opacity-75 cursor-not-allowed' : ''
+                }`}
               >
-                Start Your Journey
-                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                {isRedirecting ? (
+                  <>
+                    <div className="w-5 h-5 mr-2 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    Redirecting...
+                  </>
+                ) : (
+                  <>
+                    Start Your Journey
+                    <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                  </>
+                )}
               </Button>
-              
-              <Button 
-                variant="outline" 
-                size="lg"
-                className="border-cyan-200 text-cyan-700 hover:bg-cyan-50 px-8 py-4 text-lg rounded-xl group"
-              >
-                <Play className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
-                Watch Demo
-              </Button>
+          
             </div>
+
+            {/* Redirect Status */}
+            {isRedirecting && (
+              <p className="text-cyan-600 text-sm animate-pulse">
+                Redirecting to download page...
+              </p>
+            )}
           </div>
 
           {/* Right Column - App Landing Page Phone Mockup */}

@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 
@@ -6,15 +5,12 @@ const NavigationHeader = () => {
   const [activeSection, setActiveSection] = useState('hero');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  // Updated nav items as requested
   const navItems = [
     { id: 'hero', label: 'Home' },
-    { id: 'mood-logging', label: 'Mood Logging' },
-    { id: 'mood-analytics', label: 'Analytics' },
-    { id: 'ai-therapist', label: 'AI Therapist' },
-    { id: 'journaling', label: 'Journaling' },
-    { id: 'meditation', label: 'Meditation' },
-    { id: 'sleep-music', label: 'Sleep Music' },
-    { id: 'pricing', label: 'Pricing' },
+    { id: 'our-vision', label: 'Our Vision' },
+    { id: 'features', label: 'Features' },
+    { id: 'about-us', label: 'About Us' },
     { id: 'download', label: 'Download' },
   ];
 
@@ -34,7 +30,7 @@ const NavigationHeader = () => {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [navItems]);
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -51,7 +47,7 @@ const NavigationHeader = () => {
           <div className="flex items-center space-x-2">
             <div className="w-8 h-8 rounded-lg overflow-hidden">
               <img 
-                src="/lovable-uploads/4ff8c635-4623-4551-92f9-81f4ec850a34.png" 
+                src="lo.png" 
                 alt="Tranquil AI Logo" 
                 className="w-full h-full object-cover"
               />

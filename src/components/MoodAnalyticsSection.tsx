@@ -1,7 +1,6 @@
-
 import React, { useEffect, useState } from 'react';
 import { LineChart, Line, AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
-import { TrendingUp, Calendar, Activity, Brain } from 'lucide-react';
+import { TrendingUp, Calendar, Activity, Brain, BarChart3, Target } from 'lucide-react';
 
 const MoodAnalyticsSection = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -39,7 +38,7 @@ const MoodAnalyticsSection = () => {
           setIsVisible(true);
         }
       },
-      { threshold: 0.3 }
+      { threshold: 0.2 }
     );
 
     const section = document.getElementById('mood-analytics');
@@ -51,6 +50,7 @@ const MoodAnalyticsSection = () => {
   return (
     <section id="mood-analytics" className="py-20 bg-gradient-to-br from-slate-50 to-indigo-50">
       <div className="container mx-auto px-6 lg:px-8">
+        {/* Header */}
         <div className={`text-center mb-16 transition-all duration-1000 ${
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`}>
@@ -66,255 +66,255 @@ const MoodAnalyticsSection = () => {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
-          {/* Left Side - Phone Mockup with Analytics */}
-          <div className={`transition-all duration-1000 delay-200 ${
+        {/* Main Analytics Dashboard */}
+        <div className="grid lg:grid-cols-2 gap-8 mb-16">
+          {/* Mood Trends Chart */}
+          <div className={`bg-white rounded-3xl p-8 shadow-xl border border-slate-200 transition-all duration-1000 delay-200 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}>
-            <div className="relative mx-auto max-w-sm bg-slate-900 rounded-[3rem] p-2 shadow-2xl">
-              <div className="bg-slate-100 rounded-[2.5rem] overflow-hidden h-[600px] relative">
-                
-                {/* Status Bar */}
-                <div className="bg-slate-200 text-slate-900 px-6 py-2 text-xs flex justify-between items-center">
-                  <span className="font-medium">01:52</span>
-                  <div className="flex items-center space-x-1">
-                    <span className="text-xs">4G</span>
-                    <span className="text-xs">📶</span>
-                    <span className="text-xs">🔋15%</span>
-                  </div>
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center space-x-3">
+                <div className="w-12 h-12 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-xl flex items-center justify-center">
+                  <BarChart3 className="w-6 h-6 text-indigo-600" />
                 </div>
-
-                {/* Header */}
-                <div className="flex items-center px-6 py-4 border-b border-slate-300">
-                  <button className="mr-4">←</button>
-                  <h2 className="text-xl font-bold text-slate-900">Mood Tracker</h2>
-                </div>
-
-                {/* Content - Based on uploaded analytics images */}
-                <div className="p-6 space-y-4 overflow-y-auto h-full">
-                  
-                  {/* Current Status Card */}
-                  <div className="bg-blue-100 rounded-2xl p-4">
-                    <div className="flex items-center space-x-2 mb-2">
-                      <span className="text-blue-600">📊</span>
-                      <h3 className="font-bold text-blue-900">Current Status</h3>
-                    </div>
-                    <p className="text-sm text-blue-700 mb-1">
-                      The average mood is at 3.7 which indicates a relatively positive state.
-                    </p>
-                  </div>
-
-                  {/* Progress Highlight */}
-                  <div className="bg-green-100 rounded-2xl p-4">
-                    <div className="flex items-center space-x-2 mb-2">
-                      <span className="text-green-600">📈</span>
-                      <h3 className="font-bold text-green-900">Progress Highlight</h3>
-                    </div>
-                    <p className="text-sm text-green-700">
-                      Positive days make up 63.3% of total entries, showing a consistent trend towards positivity.
-                    </p>
-                  </div>
-
-                  {/* Momentum */}
-                  <div className="bg-green-100 rounded-2xl p-4">
-                    <div className="flex items-center space-x-2 mb-2">
-                      <span className="text-green-600">⚡</span>
-                      <h3 className="font-bold text-green-900">Momentum</h3>
-                    </div>
-                    <p className="text-sm text-green-700">
-                      With a current streak of 1 day, there is an opportunity to build on this consistency for improved mood over time.
-                    </p>
-                  </div>
-
-                  {/* Mood Summary */}
-                  <div className="bg-white rounded-2xl p-4 border border-slate-200">
-                    <div className="flex items-center space-x-2 mb-4">
-                      <span className="text-blue-600">📊</span>
-                      <h3 className="font-bold text-slate-900">Mood Summary</h3>
-                    </div>
-                    
-                    <div className="space-y-3">
-                      <div>
-                        <h4 className="font-semibold text-slate-800 mb-2">Key Insights</h4>
-                        <p className="text-sm text-slate-600">
-                          The average mood rating is 3.7 out of 5, with "Excellent" being the most common rating. 
-                          Positive moods account for 63.3% of all entries, based on a total of 30 mood entries.
-                        </p>
-                      </div>
-
-                      <div>
-                        <h4 className="font-semibold text-slate-800 mb-2">Statistics</h4>
-                        <div className="space-y-2">
-                          <div className="flex justify-between">
-                            <span className="text-slate-600">Average Mood</span>
-                            <span className="bg-blue-500 text-white px-2 py-1 rounded-full text-xs">3.7</span>
-                          </div>
-                          <div className="flex justify-between">
-                            <span className="text-slate-600">Positive Days</span>
-                            <span className="bg-blue-500 text-white px-2 py-1 rounded-full text-xs">63.3%</span>
-                          </div>
-                          <div className="flex justify-between">
-                            <span className="text-slate-600">Neutral Days</span>
-                            <span className="bg-blue-500 text-white px-2 py-1 rounded-full text-xs">20.0%</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                <div>
+                  <h3 className="text-xl font-bold text-slate-900">Weekly Mood Trends</h3>
+                  <p className="text-sm text-slate-600">Last 7 days overview</p>
                 </div>
               </div>
+              <div className="text-right">
+                <p className="text-2xl font-bold text-slate-900">7.6</p>
+                <p className="text-sm text-green-600">+12% vs last week</p>
+              </div>
+            </div>
+            
+            <div className="h-64 w-full">
+              <ResponsiveContainer width="100%" height="100%">
+                <AreaChart data={moodTrendData}>
+                  <defs>
+                    <linearGradient id="moodGradient" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#6366F1" stopOpacity={0.3}/>
+                      <stop offset="95%" stopColor="#6366F1" stopOpacity={0}/>
+                    </linearGradient>
+                  </defs>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" />
+                  <XAxis dataKey="date" stroke="#64748B" fontSize={12} />
+                  <YAxis stroke="#64748B" fontSize={12} />
+                  <Tooltip 
+                    contentStyle={{
+                      backgroundColor: 'white',
+                      border: '1px solid #E2E8F0',
+                      borderRadius: '12px',
+                      boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)'
+                    }}
+                  />
+                  <Area 
+                    type="monotone" 
+                    dataKey="mood" 
+                    stroke="#6366F1" 
+                    strokeWidth={3}
+                    fill="url(#moodGradient)" 
+                  />
+                </AreaChart>
+              </ResponsiveContainer>
             </div>
           </div>
 
-          {/* Right Side - Analytics Dashboard */}
-          <div className={`transition-all duration-1000 delay-400 ${
+          {/* Mood Distribution */}
+          <div className={`bg-white rounded-3xl p-8 shadow-xl border border-slate-200 transition-all duration-1000 delay-400 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}>
-            <div className="relative mx-auto max-w-sm bg-slate-900 rounded-[3rem] p-2 shadow-2xl">
-              <div className="bg-slate-100 rounded-[2.5rem] overflow-hidden h-[600px] relative">
-                
-                {/* Status Bar */}
-                <div className="bg-slate-200 text-slate-900 px-6 py-2 text-xs flex justify-between items-center">
-                  <span className="font-medium">01:52</span>
-                  <div className="flex items-center space-x-1">
-                    <span className="text-xs">4G</span>
-                    <span className="text-xs">📶</span>
-                    <span className="text-xs">🔋15%</span>
-                  </div>
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center space-x-3">
+                <div className="w-12 h-12 bg-gradient-to-br from-green-100 to-blue-100 rounded-xl flex items-center justify-center">
+                  <Target className="w-6 h-6 text-green-600" />
                 </div>
-
-                {/* Header */}
-                <div className="flex items-center px-6 py-4 border-b border-slate-300">
-                  <button className="mr-4">←</button>
-                  <h2 className="text-xl font-bold text-slate-900">Mood Tracker</h2>
-                </div>
-
-                {/* Content - Calendar and Insights */}
-                <div className="p-6 space-y-4 overflow-y-auto h-full">
-                  
-                  {/* Mood Calendar Card */}
-                  <div className="bg-white rounded-2xl p-4 border border-slate-200">
-                    <div className="flex items-center space-x-2 mb-4">
-                      <span className="text-blue-600">📅</span>
-                      <h3 className="font-bold text-slate-900">Mood Calendar</h3>
-                    </div>
-                    
-                    <div className="mb-4">
-                      <h4 className="font-semibold text-slate-800 mb-2">Insights</h4>
-                      <p className="text-sm text-slate-600">
-                        The mood trends for this week have been consistently positive, with recent moods being described as very pleasant and excellent. Overall, the mood remains excellent, indicating a high level of contentment and positivity.
-                      </p>
-                    </div>
-
-                    {/* Calendar */}
-                    <div className="mb-4">
-                      <div className="flex justify-between items-center mb-3">
-                        <button>‹</button>
-                        <span className="font-semibold">May 2025</span>
-                        <button>›</button>
-                        <button className="bg-slate-200 px-3 py-1 rounded-full text-sm">Month</button>
-                      </div>
-                      
-                      <div className="grid grid-cols-7 gap-1 text-center text-xs mb-2">
-                        <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
-                      </div>
-                      
-                      <div className="grid grid-cols-7 gap-1 text-center text-sm">
-                        <div>25</div><div>26</div><div>27</div>
-                        <div className="bg-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center">28</div>
-                        <div className="bg-blue-300 text-white rounded-full w-8 h-8 flex items-center justify-center">29</div>
-                        <div>30</div><div>31</div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* AI Insights */}
-                  <div className="bg-white rounded-2xl p-4 border border-slate-200">
-                    <div className="flex items-center space-x-2 mb-4">
-                      <span className="text-blue-600">🤖</span>
-                      <h3 className="font-bold text-slate-900">AI Insights</h3>
-                    </div>
-                    
-                    <div className="grid grid-cols-2 gap-3">
-                      <div className="bg-blue-100 rounded-xl p-3">
-                        <h4 className="font-bold text-blue-900">Average Mood</h4>
-                        <p className="text-2xl font-bold text-blue-600">3.7</p>
-                        <p className="text-xs text-blue-600">out of 5</p>
-                      </div>
-                      
-                      <div className="bg-green-100 rounded-xl p-3">
-                        <h4 className="font-bold text-green-900">Positive Days</h4>
-                        <p className="text-2xl font-bold text-green-600">63.3%</p>
-                        <p className="text-xs text-green-600">of total days</p>
-                      </div>
-                      
-                      <div className="bg-orange-100 rounded-xl p-3">
-                        <h4 className="font-bold text-orange-900">Current Streak</h4>
-                        <p className="text-2xl font-bold text-orange-600">1 days</p>
-                        <p className="text-xs text-orange-600">consecutive entries</p>
-                      </div>
-                      
-                      <div className="bg-purple-100 rounded-xl p-3">
-                        <h4 className="font-bold text-purple-900">Total Entries</h4>
-                        <p className="text-2xl font-bold text-purple-600">30</p>
-                        <p className="text-xs text-purple-600">mood records</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Current Status */}
-                  <div className="bg-blue-100 rounded-2xl p-4">
-                    <div className="flex items-center space-x-2">
-                      <span className="text-blue-600">📊</span>
-                      <h3 className="font-bold text-blue-900">Current Status</h3>
-                    </div>
-                  </div>
+                <div>
+                  <h3 className="text-xl font-bold text-slate-900">Mood Distribution</h3>
+                  <p className="text-sm text-slate-600">30 total entries</p>
                 </div>
               </div>
+              <div className="text-right">
+                <p className="text-2xl font-bold text-slate-900">63.3%</p>
+                <p className="text-sm text-green-600">Positive moods</p>
+              </div>
+            </div>
+            
+            <div className="h-64 w-full flex items-center justify-center">
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie
+                    data={moodDistribution}
+                    cx="50%"
+                    cy="50%"
+                    innerRadius={60}
+                    outerRadius={100}
+                    paddingAngle={5}
+                    dataKey="value"
+                  >
+                    {moodDistribution.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.color} />
+                    ))}
+                  </Pie>
+                  <Tooltip 
+                    contentStyle={{
+                      backgroundColor: 'white',
+                      border: '1px solid #E2E8F0',
+                      borderRadius: '12px',
+                      boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)'
+                    }}
+                  />
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
+            
+            <div className="flex flex-wrap gap-3 mt-4">
+              {moodDistribution.map((mood, index) => (
+                <div key={index} className="flex items-center space-x-2">
+                  <div className="w-3 h-3 rounded-full" style={{ backgroundColor: mood.color }}></div>
+                  <span className="text-sm text-slate-600">{mood.name}</span>
+                </div>
+              ))}
             </div>
           </div>
         </div>
 
-        {/* Insights Cards */}
-        <div className="grid md:grid-cols-3 gap-6">
+        {/* Key Metrics Cards */}
+        <div className="grid md:grid-cols-4 gap-6 mb-16">
           {[
             { 
               icon: Brain, 
-              title: "Mood Insights", 
-              value: "78% Positive", 
-              trend: "+12% vs last month",
-              color: "bg-blue-100 text-blue-600"
+              title: "Average Mood", 
+              value: "3.7/5", 
+              trend: "Positive outlook",
+              color: "bg-gradient-to-br from-blue-100 to-indigo-100",
+              iconColor: "text-blue-600",
+              delay: 600
             },
             { 
               icon: TrendingUp, 
-              title: "Stress Reduction", 
-              value: "24% Less", 
-              trend: "Improved over 4 weeks",
-              color: "bg-green-100 text-green-600"
+              title: "Positive Days", 
+              value: "63.3%", 
+              trend: "Above average",
+              color: "bg-gradient-to-br from-green-100 to-emerald-100",
+              iconColor: "text-green-600",
+              delay: 700
+            },
+            { 
+              icon: Target, 
+              title: "Current Streak", 
+              value: "1 day", 
+              trend: "Building momentum",
+              color: "bg-gradient-to-br from-orange-100 to-amber-100",
+              iconColor: "text-orange-600",
+              delay: 800
             },
             { 
               icon: Activity, 
-              title: "Consistency", 
-              value: "6.2/7 days", 
-              trend: "Great tracking habit!",
-              color: "bg-purple-100 text-purple-600"
+              title: "Total Entries", 
+              value: "30", 
+              trend: "Consistent tracking",
+              color: "bg-gradient-to-br from-purple-100 to-violet-100",
+              iconColor: "text-purple-600",
+              delay: 900
             },
-          ].map((insight, i) => (
+          ].map((metric, i) => (
             <div 
               key={i}
-              className={`bg-white rounded-2xl p-6 shadow-lg border border-slate-200 transition-all duration-1000 hover:scale-105 ${
+              className={`bg-white rounded-2xl p-6 shadow-lg border border-slate-200 transition-all duration-1000 hover:scale-105 hover:shadow-xl ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}
-              style={{ transitionDelay: `${(i + 4) * 200}ms` }}
+              style={{ transitionDelay: `${metric.delay}ms` }}
             >
-              <div className={`w-12 h-12 ${insight.color} rounded-xl flex items-center justify-center mb-4`}>
-                <insight.icon className="w-6 h-6" />
+              <div className={`w-14 h-14 ${metric.color} rounded-2xl flex items-center justify-center mb-4 transition-transform duration-300 hover:scale-110`}>
+                <metric.icon className={`w-7 h-7 ${metric.iconColor}`} />
               </div>
-              <h3 className="text-lg font-bold text-slate-900 mb-2">{insight.title}</h3>
-              <p className="text-2xl font-bold text-slate-900 mb-1">{insight.value}</p>
-              <p className="text-sm text-slate-600">{insight.trend}</p>
+              <h3 className="text-lg font-bold text-slate-900 mb-2">{metric.title}</h3>
+              <p className="text-3xl font-bold text-slate-900 mb-1">{metric.value}</p>
+              <p className="text-sm text-slate-600">{metric.trend}</p>
             </div>
           ))}
+        </div>
+
+        {/* Insights Summary */}
+        <div className="grid lg:grid-cols-3 gap-8">
+          {/* Current Status */}
+          <div className={`bg-gradient-to-br from-blue-50 to-indigo-50 rounded-3xl p-8 border border-blue-200 transition-all duration-1000 delay-1000 ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}>
+            <div className="flex items-center space-x-3 mb-6">
+              <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                <BarChart3 className="w-6 h-6 text-blue-600" />
+              </div>
+              <h3 className="text-xl font-bold text-slate-900">Current Status</h3>
+            </div>
+            <p className="text-slate-700 leading-relaxed mb-4">
+              The average mood is at 3.7 which indicates a relatively positive state. This suggests consistent emotional well-being and resilience.
+            </p>
+            <div className="bg-white rounded-xl p-4 border border-blue-100">
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-slate-600">Mood Rating</span>
+                <div className="flex items-center space-x-2">
+                  <div className="w-20 h-2 bg-blue-100 rounded-full overflow-hidden">
+                    <div className="w-3/4 h-full bg-blue-500 rounded-full"></div>
+                  </div>
+                  <span className="text-sm font-bold text-blue-600">3.7/5</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Progress Highlight */}
+          <div className={`bg-gradient-to-br from-green-50 to-emerald-50 rounded-3xl p-8 border border-green-200 transition-all duration-1000 delay-1100 ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}>
+            <div className="flex items-center space-x-3 mb-6">
+              <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                <TrendingUp className="w-6 h-6 text-green-600" />
+              </div>
+              <h3 className="text-xl font-bold text-slate-900">Progress Highlight</h3>
+            </div>
+            <p className="text-slate-700 leading-relaxed mb-4">
+              Positive days make up 63.3% of total entries, showing a consistent trend towards positivity and emotional growth.
+            </p>
+            <div className="bg-white rounded-xl p-4 border border-green-100">
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-slate-600">Positive Ratio</span>
+                <div className="flex items-center space-x-2">
+                  <div className="w-20 h-2 bg-green-100 rounded-full overflow-hidden">
+                    <div className="w-2/3 h-full bg-green-500 rounded-full"></div>
+                  </div>
+                  <span className="text-sm font-bold text-green-600">63.3%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Momentum */}
+          <div className={`bg-gradient-to-br from-purple-50 to-violet-50 rounded-3xl p-8 border border-purple-200 transition-all duration-1000 delay-1200 ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}>
+            <div className="flex items-center space-x-3 mb-6">
+              <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
+                <Activity className="w-6 h-6 text-purple-600" />
+              </div>
+              <h3 className="text-xl font-bold text-slate-900">Momentum</h3>
+            </div>
+            <p className="text-slate-700 leading-relaxed mb-4">
+              With a current streak of 1 day, there is an opportunity to build on this consistency for improved mood over time.
+            </p>
+            <div className="bg-white rounded-xl p-4 border border-purple-100">
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-slate-600">Current Streak</span>
+                <div className="flex items-center space-x-2">
+                  <div className="w-20 h-2 bg-purple-100 rounded-full overflow-hidden">
+                    <div className="w-1/4 h-full bg-purple-500 rounded-full"></div>
+                  </div>
+                  <span className="text-sm font-bold text-purple-600">1 day</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

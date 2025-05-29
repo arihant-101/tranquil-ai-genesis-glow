@@ -81,17 +81,17 @@ const LoadingScreen = () => {
             </svg>
             
             {/* Tranquil AI Logo */}
-            <div 
-              className={`absolute inset-3 rounded-full flex items-center justify-center transition-all duration-1500 ease-out ${
+             <div
+               className={`absolute inset-2 rounded-full flex items-center justify-center transition-all duration-1500 ease-out ${
                 logoVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
               }`}
-            >
-              <img 
-                src="/lovable-uploads/4ff8c635-4623-4551-92f9-81f4ec850a34.png" 
-                alt="Tranquil AI Logo" 
-                className="w-full h-full rounded-full object-cover"
-              />
-            </div>
+             >
+               <img 
+                 src="lo.png" 
+                 alt="Tranquil AI Logo"
+                 className="w-full h-full object-contain"
+               />
+             </div>
           </div>
         </div>
 

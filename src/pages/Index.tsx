@@ -12,6 +12,9 @@ import SleepMusicSection from '../components/SleepMusicSection';
 import { PricingSection, defaultTiers } from '../components/PricingSection';
 import DownloadSection from '../components/DownloadSection';
 import Footer from '../components/Footer';
+import Features from '@/components/Features';
+import Vision from '@/components/Vision';
+import AboutUs from '@/components/AboutUs';
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -34,13 +37,9 @@ const Index = () => {
       <NavigationHeader />
       <div className="pt-16"> {/* Add padding-top to account for fixed header */}
         <HeroSection />
-        <MoodLoggingSection />
-        <MoodAnalyticsSection />
-        <AITherapistSection />
-        <JournalingSection />
-        <MeditationSection />
-        <SleepMusicSection />
-        <PricingSection tiers={defaultTiers} />
+        <Vision />
+        <Features />
+        <AboutUs />
         <DownloadSection />
         <Footer />
       </div>
