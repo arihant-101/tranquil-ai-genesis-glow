@@ -15,7 +15,7 @@ const HeroSection = () => {
     
     setTimeout(() => {
       // Redirect to the coming soon page
-      window.location.href = '/comingsoon.html';
+      window.location.href = 'comingsoon.html';
       setIsRedirecting(false);
     }, 500);
   };
